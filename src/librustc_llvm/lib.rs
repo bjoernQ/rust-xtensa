@@ -109,4 +109,12 @@ pub fn initialize_available_targets() {
                  LLVMInitializeWebAssemblyTarget,
                  LLVMInitializeWebAssemblyTargetMC,
                  LLVMInitializeWebAssemblyAsmPrinter);
+    init_target!(llvm_component = "xtensa",
+                 LLVMInitializeXtensaTargetInfo,
+                 LLVMInitializeXtensaTarget,
+                 LLVMInitializeXtensaTargetMC,
+                 LLVMInitializeXtensaAsmPrinter
+                 LLVMInitializeXtensaAsmParser);
+                 );
+
 }

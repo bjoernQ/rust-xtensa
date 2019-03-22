@@ -121,7 +121,7 @@ matrix:
     - env: IMAGE=armhf-gnu
       if: branch = auto
     - env: IMAGE=dist-various-1 DEPLOY=1
-      if: branch = auto
+      if: branch = xtensa-1.34.0ea22717a
     - env: IMAGE=dist-various-2 DEPLOY=1
       if: branch = auto
     - env: IMAGE=dist-aarch64-linux DEPLOY=1

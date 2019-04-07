@@ -32,13 +32,13 @@ extern "Rust" {
 
 #[cfg(target_arch = "xtensa")]
 extern "C" {
-    fn xtensa__rust_alloc(size: usize, align: usize) -> *mut u8;
-    fn xtensa__rust_dealloc(ptr: *mut u8, size: usize, align: usize);
-    fn xtensa__rust_realloc(ptr: *mut u8,
+    fn __rg_alloc(size: usize, align: usize) -> *mut u8;
+    fn __rg_dealloc(ptr: *mut u8, size: usize, align: usize);
+    fn __rg_realloc(ptr: *mut u8,
                       old_size: usize,
                       align: usize,
                       new_size: usize) -> *mut u8;
-    fn xtensa__rust_alloc_zeroed(size: usize, align: usize) -> *mut u8;
+    fn __rg_alloc_zeroed(size: usize, align: usize) -> *mut u8;
 }
 
 /// The global memory allocator.
@@ -85,7 +85,7 @@ pub unsafe fn alloc(layout: Layout) -> *mut u8 {
     return __rust_alloc(layout.size(), layout.align());
 
     #[cfg(target_arch = "xtensa")]
-    xtensa__rust_alloc(layout.size(), layout.align())
+    __rg_alloc(layout.size(), layout.align())
 }
 
 /// Deallocate memory with the global allocator.
@@ -107,7 +107,7 @@ pub unsafe fn dealloc(ptr: *mut u8, layout: Layout) {
     return __rust_dealloc(ptr, layout.size(), layout.align());
 
     #[cfg(target_arch = "xtensa")]
-    xtensa__rust_dealloc(ptr, layout.size(), layout.align())
+    __rg_dealloc(ptr, layout.size(), layout.align())
 }
 
 /// Reallocate memory with the global allocator.
@@ -129,7 +129,7 @@ pub unsafe fn realloc(ptr: *mut u8, layout: Layout, new_size: usize) -> *mut u8 
     return __rust_realloc(ptr, layout.size(), layout.align(), new_size);
 
     #[cfg(target_arch = "xtensa")]
-    xtensa__rust_realloc(ptr, layout.size(), layout.align(), new_size)
+    __rg_realloc(ptr, layout.size(), layout.align(), new_size)
 }
 
 /// Allocate zero-initialized memory with the global allocator.
@@ -166,7 +166,7 @@ pub unsafe fn alloc_zeroed(layout: Layout) -> *mut u8 {
     return __rust_alloc_zeroed(layout.size(), layout.align());
 
     #[cfg(target_arch = "xtensa")]
-    xtensa__rust_alloc_zeroed(layout.size(), layout.align())
+    __rg_alloc_zeroed(layout.size(), layout.align())
 }
 
 #[unstable(feature = "allocator_api", issue = "32838")]

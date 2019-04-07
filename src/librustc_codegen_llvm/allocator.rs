@@ -1,16 +1,7 @@
-#[cfg(not(target_arch = "xtensa"))]
 use std::ffi::CString;
-
-#[cfg(not(target_arch = "xtensa"))]
 use attributes;
-
-#[cfg(not(target_arch = "xtensa"))]
 use libc::c_uint;
-
-#[cfg(not(target_arch = "xtensa"))]
 use rustc_allocator::{ALLOCATOR_METHODS, AllocatorTy};
-
-#[cfg(not(target_arch = "xtensa"))]
 use llvm::{self, False, True};
 
 use rustc::middle::allocator::AllocatorKind;
@@ -19,9 +10,9 @@ use rustc::ty::TyCtxt;
 use ModuleLlvm;
 
 pub(crate) unsafe fn codegen(tcx: TyCtxt, mods: &ModuleLlvm, kind: AllocatorKind) {
-    // don't generate for xtensa
-    #[cfg(target_arch = "xtensa")]
-    return;
+    if &tcx.sess.target.target.arch == "xtensa" {
+        return
+    }
 
     let llcx = &*mods.llcx;
     let llmod = mods.llmod();

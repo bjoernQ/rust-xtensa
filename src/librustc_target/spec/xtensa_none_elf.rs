@@ -15,6 +15,8 @@ pub fn target() -> TargetResult {
         linker_flavor: LinkerFlavor::Gcc,
 
         options: TargetOptions {
+            cpu: "esp32".to_string(),
+
             executables: true,
 
             // The LLVM backend currently can't generate object files. To
